@@ -54,7 +54,7 @@ contract Certificate {
   // Mappings
 
   // Access Mapping
-  mapping(address => Role_Access) private userPermission;
+  mapping(address => Role_Access) public userPermission;
   mapping(address => User) private userDetail;
   mapping(address => string) private apiKeys;
 
@@ -155,7 +155,7 @@ contract Certificate {
     return certificateDetails[_certId];
   }
 
-  function getMyAllCertificates()
+  function getAllMyCertificates()
     public
     view
     returns (CertificateDetail[] memory)
@@ -169,7 +169,6 @@ contract Certificate {
   ) public canAccess(Role_Access.ThirdPartyValidator) returns (bool) {
     CertificateDetail memory detail = certificateDetails[_certId];
     if (detail.isValid) {
-      /** no need to emit CertificateValidate */
       emit CertificateValidate(
         detail.issuer,
         detail.owner,
@@ -202,5 +201,30 @@ contract Certificate {
       }
     }
   }
-  // function getRole() to know which role is assigned to individual
+
+  /**** Getter Functions ****/
+
+  function getOwner() external view returns (address) {
+    return owner;
+  }
+
+  function getUserPermission(
+    address _user
+  ) external view returns (Role_Access) {
+    return userPermission[_user];
+  }
+
+  function GetUserDetail(address _user) external view returns (User memory) {
+    return userDetail[_user];
+  }
+
+  function getApiKeys(address _user) external view returns (string memory) {
+    return apiKeys[_user];
+  }
+
+  function getCertificateIssuer(
+    string memory _certId
+  ) external view returns (address) {
+    return certificateIssuer[_certId];
+  }
 }

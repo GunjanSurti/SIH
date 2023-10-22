@@ -1,11 +1,20 @@
+/** Done */
 import { Certificate } from "../typechain/Certificate"
 import { ethers, getNamedAccounts } from "hardhat"
+//@ts-ignore
+import createSigner from "./createSigners"
 
 async function genCert() {
-    const {admin,student} = await getNamedAccounts()
+  const { student } = await getNamedAccounts()
+
+  const admin = await createSigner(
+    "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+  )
+
   const certi: Certificate = await ethers.getContractAt(
-    "Certificate",
-    "0x5FbDB2315678afecb367f032d93F642f64180aa3",admin
+    "ICertificate",
+    "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    admin
   )
   const generateCerti = await certi.generateCertificate(
     student,
@@ -14,14 +23,13 @@ async function genCert() {
     "xyz",
     "xyz"
   )
+  generateCerti.wait(1)
 
-  const eventFilter = certi.filters.CertificateIssued()
-  const events = await certi.queryFilter(eventFilter)
+  /** To log events */
+  //   const eventFilter = certi.filters.CertificateIssued()
+  //   const events = await certi.queryFilter(eventFilter)
 
-  console.log("Emitted events:", events)
-
-  //   const getMyAllCertificates = await certi.getMyAllCertificates()
-  //   console.log(getMyAllCertificates)
+  //   console.log("Emitted events:", events[0])
 }
 genCert()
   .then(() => process.exit(0))
@@ -29,6 +37,7 @@ genCert()
     console.error(error)
     process.exit(1)
   })
+/**************************************************************/
 // module.exports = { genCert }
 
 //   //0x70997970C51812dc3A010C7d01b50e0d17dc79C8
