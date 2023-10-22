@@ -1,0 +1,39 @@
+{
+  "name": "moralis-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@walletconnect/ethereum-provider": "^2.10.2",
+    "@walletconnect/modal": "^2.6.2",
+    "ethers": "^5.6.4",
+    "level-errors": "^3.0.1",
+    "moralis": "^1.8.0",
+    "next": "12.1.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-moralis": "^1.4.0",
+    "react-scripts": "4.0.3",
+    "web3uikit": "^0.1.159"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.24",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.4",
+    "eslint": "8.13.0",
+    "eslint-config-next": "12.1.5",
+    "magic-sdk": "^21.1.1",
+    "moralis-v1": "^1.13.0",
+    "postcss": "^8.4.12",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^3.0.24",
+    "typescript": "4.6.3",
+    "web3": "^4.2.0"
+  }
+}
