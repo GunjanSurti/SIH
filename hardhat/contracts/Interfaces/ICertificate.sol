@@ -2,6 +2,29 @@
 pragma solidity ^0.8.0;
 
 interface ICertificate {
+  enum Role_Access {
+    Normal_User,
+    Student,
+    ThirdPartyValidator,
+    University,
+    Admin
+  }
+  struct User {
+    address userId;
+    Role_Access role_assigned;
+    string universityName;
+    bool isValid;
+  }
+  struct CertificateDetail {
+    address owner;
+    address issuer;
+    string documentUrl;
+    string uniqueId;
+    string courseId;
+    string remarks;
+    bool isValid;
+  }
+
   /**
    *
    * @param _user is address which has to give new/modify role, given only admin
@@ -41,7 +64,7 @@ interface ICertificate {
     string memory _certId
   ) external view returns (CertificateDetail memory);
 
-  function getMyAllCertificates()
+  function getAllMyCertificates()
     external
     view
     returns (CertificateDetail[] memory);
@@ -70,18 +93,19 @@ interface ICertificate {
    * @param _user address of user
    */
   function getUserPermission(address _user) external view returns (Role_Access);
-/**
- * 
- * @param _user 
- */
+
+  /**
+   *
+   * @param _user this is it
+   */
   function getUserDetail(address _user) external view returns (User memory);
 
   function getApiKeys(address _user) external view returns (string memory);
 
-/**
- * give the issuer of certifficate
- * @param _certId it is used to get particular certificate
- */ */
+  /**
+   * give the issuer of certifficate
+   * @param _certId it is used to get particular certificate
+   */
   function getCertificateIssuer(
     string memory _certId
   ) external view returns (address);

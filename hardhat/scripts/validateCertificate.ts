@@ -1,23 +1,24 @@
-/** Done with Interfaces*/
+
+/*** not working properly dky */
 import { ICertificate } from "../typechain/Interfaces/ICertificate"
 import { ethers } from "hardhat"
 //@ts-ignore
 import createSigner from "./createSigners"
 
-async function getAllCertificates() {
-  const stu = await createSigner(
-    "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a"
-  )
+/*** used by ThirdPartyValidator, so assign role  */
+async function validateCertificate() {
+  const tpv = await createSigner(process.env.THIRD_PARTY_VALIDATOR)
   const certi: ICertificate = await ethers.getContractAt(
     "Certificate",
     "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    stu
+    tpv
   )
-  const getMyAllCertificates = await certi.getAllMyCertificates()
+  const validate = await certi.validateCertificate("pqr")
+  validate.wait(1)
 
-  console.log(getMyAllCertificates)
+  console.log(validate.value.toNumber())
 }
-getAllCertificates()
+validateCertificate()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error)
