@@ -16,7 +16,7 @@ async function assignRole() {
   )
   //   console.log(certi);
 
-  const giveRole = await certi.modifyRole(ThirdPartyValidator, 2)
+  const giveRole = await certi.modifyRole(university, 3)
   giveRole.wait(1)
 }
 assignRole()

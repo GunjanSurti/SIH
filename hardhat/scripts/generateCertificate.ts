@@ -11,6 +11,8 @@ async function genCert() {
   const { student } = await getNamedAccounts()
 
   const uni = await createSigner(process.env.UNIVERSITY)
+  console.log(uni.address);
+  
 
   const certi: ICertificate = await ethers.getContractAt(
     "ICertificate",

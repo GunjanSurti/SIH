@@ -13,7 +13,7 @@ const updateUI: DeployFunction = async function (
   const { network, ethers } = hre
   const chainId = "31337"
 
-  if (process.env.UPDATE_FRONT_END) {
+  if (process.env.UPDATE_FRONT_END == "true") {
     console.log("Writing to front end...")
     const certificate = await ethers.getContract("Certificate")
     const contractAddresses = JSON.parse(

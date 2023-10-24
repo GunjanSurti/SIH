@@ -7,15 +7,15 @@ import createSigner from "./createSigners"
 
 async function assignRole() {
   //@ts-ignore
-  const { student } = await getNamedAccounts()
-  const stu = await createSigner(process.env.STUDENT)
+  const { student,university } = await getNamedAccounts()
+  const stu = await createSigner(process.env.UNIVERSITY)
   const certi: ICertificate = await ethers.getContractAt(
     "ICertificate",
     "0x5FbDB2315678afecb367f032d93F642f64180aa3",
     stu
   )
 
-  const per = await certi.getUserPermission(student)
+  const per = await certi.getUserPermission(university)
   console.log(per)
 
   //   console.log(certi)
